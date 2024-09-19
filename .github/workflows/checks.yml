@@ -5,7 +5,7 @@ on: [push]
 
 jobs:
   test-lint:
-    name: Tezt and Lint
+    name: Test and Lint
     runs-on: ubuntu-latest
     steps:
       # - name: Login to Docker Hub
@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Test
-        run: docker-compose run --rm sh -c "python manage.py test"
+        run: docker-compose run --rm app sh -c "python manage.py test"
 
       - name: Lint
-        run: docker-compose run --rm sh -c "flake8"
+        run: docker-compose run --rm app sh -c "flake8"
