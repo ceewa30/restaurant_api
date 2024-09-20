@@ -19,3 +19,5 @@ docker volume ls
 docker volume rm restaurant_api_dev-db-data
 
 docker-compose run --rm app sh -c "python manage.py createsuperuser"
+
+docker-compose run --rm app sh -c "python manage.py startapp user"
