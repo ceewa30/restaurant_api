@@ -15,12 +15,16 @@ EXPOSE 8000
 ARG DEV=false
 RUN python -m venv /py && \
     /py/bin/pip install --upgrade pip && \
+    apk add --update --no-cache postgresql-client && \
+    apk add --update --no-cache --virtual .tmp-build-deps \
+        build-base postgresql-dev musl-dev && \
     /py/bin/pip install -r /tmp/requirements.txt && \
     if [ $DEV = 'true' ]; \
         then /py/bin/pip install -r /tmp/requirements.dev.txt ; \
     fi && \
     # remove the temporary folder, don't want the dependencies
     rm -rf /tmp && \
+    apk del .tmp-build-deps && \
     # add new user inside the image, not to use the root user
     adduser \
         --disabled-password \
