@@ -17,3 +17,5 @@ docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage
 docker volume ls
 
 docker volume rm restaurant_api_dev-db-data
+
+docker-compose run --rm app sh -c "python manage.py createsuperuser"
