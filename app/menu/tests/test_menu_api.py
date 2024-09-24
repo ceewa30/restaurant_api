@@ -64,7 +64,7 @@ class PrivateMenuAPITests(TestCase):
 
         menus = Menu.objects.all().order_by('-id')
         serializer = MenuSerializer(menus, many=True)
-        self.asertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
 
     def test_menu_list_limited_to_user(self):
