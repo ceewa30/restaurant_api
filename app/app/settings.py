@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'core.apps.CoreConfig',
     'user.apps.UserConfig',
+    'menu.apps.MenuConfig',
 ]
 
 MIDDLEWARE = [
