@@ -10,5 +10,12 @@ class MenuSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Menu
-        fields = '__all__'
+        fields = ['id', 'title', 'time_minutes', 'price']
         read_only_fields = ['id', 'created_at']
+
+
+class MenuSerializerDetail(MenuSerializer):
+    """Serializer for menu detail view"""
+
+    class Meta(MenuSerializer.Meta):
+        fields = MenuSerializer.Meta.fields + ['description']

@@ -12,9 +12,17 @@ from rest_framework.test import APIClient
 
 from core.models import Menu
 
-from menu.serializers import MenuSerializer
+from menu.serializers import (
+    MenuSerializer,
+    MenuSerializerDetail,
+)
 
 MENUS_URL = reverse('menu:menu-list')
+
+
+def detail_url(menu_id):
+    """Return the detail URL for a menu."""
+    return reverse('menu:menu-detail', args=[menu_id])
 
 
 def create_menu(user, **params):
@@ -81,4 +89,14 @@ class PrivateMenuAPITests(TestCase):
         menus = Menu.objects.filter(user=self.user)
         serializer = MenuSerializer(menus, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, serializer.data)
+
+    def test_get_menu_details(self):
+        """Test get menu details."""
+        menu = create_menu(user=self.user)
+
+        url = detail_url(menu.id)
+        res = self.client.get(url)
+
+        serializer = MenuSerializerDetail(menu)
         self.assertEqual(res.data, serializer.data)

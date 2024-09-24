@@ -12,7 +12,7 @@ from menu import serializers
 class MenuViewSet(viewsets.ModelViewSet):
     """View for manage Menu APIs."""
 
-    serializer_class = serializers.MenuSerializer
+    serializer_class = serializers.MenuSerializerDetail
     queryset = Menu.objects.all()
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -20,3 +20,10 @@ class MenuViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         """Retrieve menus for authenticated user."""
         return self.queryset.filter(user=self.request.user).order_by('-id')
+
+    def get_serializer_class(self):
+        """Return the serializer class for request."""
+        if self.action == 'list':
+            return serializers.MenuSerializer
+
+        return self.serializer_class
