@@ -27,3 +27,7 @@ class MenuViewSet(viewsets.ModelViewSet):
             return serializers.MenuSerializer
 
         return self.serializer_class
+
+    def perform_create(self, serializer):
+        """Create a new menu. """
+        serializer.save(user=self.request.user)
